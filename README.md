@@ -11,7 +11,7 @@ Gives [Hermes](https://github.com/nousresearch/hermes-agent) agents self-learnin
 Both directions of the wire, stated plainly:
 
 - **Recall — every turn.** Each user message is sent to your configured Hicortex server for recall (`POST /recall-index`, or `GET /search` on pre-0.14 servers), and session distillation runs on the server. The server therefore sees prompt text as it arrives — point `hicortex_url` at a server you trust (default `http://localhost:8787`).
-- **Capture — nightly.** Session logs are read locally from each machine's own Hermes store (Hermes keeps full history in `~/.hermes/profiles/<agent>/state.db`); the nightly ships only denoised text to the server, and the server stores distilled memories — raw session logs stay on the capturing machine. Nothing is captured in real time. See `specs/2026-07-01-memory-capture-architecture.md` in the main repo.
+- **Capture — nightly.** Session logs are read locally from each machine's own Hermes store (Hermes keeps full history in `~/.hermes/profiles/<agent>/state.db`); the nightly ships only denoised text to the server, and the server stores distilled memories — raw session logs stay on the capturing machine. Nothing is captured in real time.
 
 The plugin warns once at startup when `hicortex_url` is plain `http://` on a non-loopback host while an auth token is set — credentials and prompts then cross the network in cleartext. Use `https://`, or keep the server on a trusted private network (plain http over a private/overlay network is a legitimate setup; the warning is advisory, not a rejection). The HTTP client also strips the `Authorization` header on any redirect that leaves the original host.
 
